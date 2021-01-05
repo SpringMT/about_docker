@@ -1,7 +1,7 @@
 # 隔離
 LinuxにはNamespace(名前空間)という仕組みがあります。
 
-"名前空間内のプロセスに対して、 自分たちが専用の分離されたグローバルリソースを持っているかのように見せる仕組み" となります。
+`名前空間内のプロセスに対して、 自分たちが専用の分離されたグローバルリソースを持っているかのように見せる仕組み` となります。
 
 https://linuxjm.osdn.jp/html/LDP_man-pages/man7/namespaces.7.html
 
@@ -34,7 +34,9 @@ Time Namespace | 時間を隔離します。 Linux 5.6でmergeされたらしい
 ## unshare(2)
 呼び出したプロセスを新しい名前空間に移動します。
 
-unshareコマンドは 新しいNamespaceを作成し、指定したコマンドを実行します。
+unshareコマンド(unshare(1))は 新しいNamespaceを作成し、指定したコマンドを実行します。
+
+https://man7.org/linux/man-pages/man1/unshare.1.html
 
 ## Namespace(名前空間)の確認
 プロセスのNamespaceの確認は /proc/<PID>/ns でできます。
