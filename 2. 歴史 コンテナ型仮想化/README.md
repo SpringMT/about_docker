@@ -13,8 +13,11 @@ https://gihyo.jp/admin/serial/01/linux_containers/0002
 
 > 動する全てのプロセスはコンピュータ上にインストールされたOS（ホストOS）上で直接起動します。通常のプロセスの動作と異なるのは，そのプロセスの一部をグループ化し，他のグループやグループに属していないプロセスから隔離した空間で動作させる点です。貨物輸送のコンテナのように，隔離された空間にプロセスが入っているので，この空間を『コンテナ』と呼ぶわけです。実際のコンテナのように，あるコンテナの内部から他のコンテナの内部を見ることはできません。
 
+![](https://cloud.google.com/images/containers-landing/containers-101-2x.png)
+
 参照 https://cloud.google.com/containers
 
+![](https://hpeb.i.lithium.com/t5/image/serverpage/image-id/98754iEF6846F0AEE18604/image-size/large?v=1.0&px=2000)
 参照 https://community.hpe.com/t5/hpe-blog-japan/docker%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E4%BB%AE%E6%83%B3%E5%8C%96%E3%81%AE%E9%81%95%E3%81%84%E3%81%A8%E3%81%AF-synergy%E3%81%A8devops/ba-p/6980068?profile.language=ja#.X64f5FMzbzJ
 
 これらのように、コンテナというのはホストOS上の *プロセス* です。
@@ -32,7 +35,7 @@ https://gihyo.jp/admin/serial/01/linux_containers/0002
 #### 起動時間の短縮
 実質的にはプロセスを立ち上げるだけなので、ハイパーバイザ型に比べて起動時間は短縮できます。
 
-
+![](https://d2l930y2yx77uc.cloudfront.net/production/uploads/images/19151697/picture_pc_da0c0ae9e31395cd92b9bda6ed209828.png)
 参照 : https://note.com/ryoma_0923/n/nd96162cddccb
 
 ### デメリット
