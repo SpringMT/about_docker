@@ -43,7 +43,7 @@ https://www.virtualbox.org/
 
 ハイパーバイザ : https://ja.wikipedia.org/wiki/%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%90%E3%82%A4%E3%82%B6
 
-![](images/1-1.png)
+![](../images/1-1.png)
 
 https://www.atmarkit.co.jp/ait/articles/0903/12/news120.html より抜粋
 
@@ -107,7 +107,7 @@ https://aws.amazon.com/jp/about-aws/whats-new/2018/07/amazon-ec2-nitro-system-ba
 ### 起動時間
 仮想マシンは内部にOS(ゲストOS)があります。
 
-![](images/1-2.png)
+![](../images/1-2.png)
 
 仮想マシンで目的のアプリケーションを起動するには、
 
