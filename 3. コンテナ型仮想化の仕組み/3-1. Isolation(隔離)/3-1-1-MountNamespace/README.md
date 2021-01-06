@@ -1,5 +1,5 @@
 # Mount Namespace(マウント名前空間)
-マウントポイントはシステムで一つ、全部のプロセスが同じファイルパスで同じファイルを見られるはずです。
+マウントポイントはシステムで共通で、全部のプロセスが同じファイルパスで同じファイルを見られるはずです。
 
 マウント名前空間を変えると、プロセスごと異なるデバイスをマウントし、別のファイルシステムを見せることができます。
 
@@ -16,7 +16,12 @@ unshareコマンドの -m オプションで実行します。
 ```
 vagrant@ubuntu-bionic:~$ sudo unshare -m /bin/bash
 root@ubuntu-bionic:~# touch /root/hosts
+
 # https://pgmemo.tokyo/data/archives/1209.html mount -o bindの説明
+# https://pgmemo.tokyo/data/archives/1209.html mount -o bindの説明
+# bindオプションを使うと、指定したファイルパスを、別のディレクトリにマウントすることができる。
+# シンボリックリンクの代わりとなる
+
 root@ubuntu-bionic:~# mount -o bind /etc/hosts /root/hosts
 root@ubuntu-bionic:~# ls -l /root/hosts
 -rw-r--r-- 1 root root 260 Nov 14 20:02 /root/hosts
