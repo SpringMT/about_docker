@@ -54,6 +54,7 @@ net_prio | NIC 別にトラフィックのプライオリティを設定する
 cgroupfsのトップディレクトリをルートにした階層構造になります。
 
 ![](https://gihyo.jp/assets/images/admin/serial/01/linux_containers/0003/thumb/TH800_001.jpg)
+
 参照 : https://gihyo.jp/admin/serial/01/linux_containers/0003?page=2
 
 この図では，「⁠デスクトップアプリ」と「デーモン」グループにそれぞれ30％ずつCPUを割り当てていますので，そのさらに下のcgroupは親の割り当てである30％からリソースが割り当てられます。
