@@ -5,6 +5,8 @@
 
 ## 隔離
 
+まず、unsahreコマンドを使ってネットワーク名前空間を隔離します。
+
 ```
 vagrant@ubuntu-bionic:~$ ls -l /proc/$$/ns/
 total 0
@@ -73,6 +75,7 @@ Chain DOCKER-USER (1 references)
  pkts bytes target     prot opt in     out     source               destination         
     0     0 RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0           
 
+# ネットワーク名前空間を隔離する
 vagrant@ubuntu-bionic:~$ sudo unshare --net /bin/bash
 
 root@ubuntu-bionic:~# ls -l /proc/$$/ns/
@@ -100,10 +103,12 @@ Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
 
 Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
  pkts bytes target     prot opt in     out     source               destination         
-root@ubuntu-bionic:~# 
 ```
 
 unshareコマンドで作った新しいネットワーク名前空間には、loopback interfaceしかできないため、親の名前空間とも通信できません。
+
+> loopback interface
+> 自身とのみ通信可能なインターフェース
 
 ルーティングテーブルもフィルタリングテーブルも空のものができます。
 
@@ -114,7 +119,7 @@ unshareコマンドで作った新しいネットワーク名前空間には、l
 
 ネットワークブリッジを作ります。
 
-https://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8_(%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A9%9F%E5%99%A8)
+[ブリッジ (ネットワーク機器)](https://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8_(%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E6%A9%9F%E5%99%A8))
 
 ```
 vagrant@ubuntu-bionic:~$ sudo ip link add name br0 type bridge
