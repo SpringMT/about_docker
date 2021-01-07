@@ -42,7 +42,7 @@ vagrant@ubuntu-bionic:~$ touch merged/testfile_overlay
 vagrant@ubuntu-bionic:~$ ls -F merged/
 testfile_overlay
 vagrant@ubuntu-bionic:~$ ls -F lower/
-vagrant@ubuntu-bionic:~$ ls -F upper/ <= 上層であるupperdirディレクトリにファイルの変更がある
+vagrant@ubuntu-bionic:~$ ls -F upper/ <= 上位であるupperdirディレクトリにファイルの変更がある
 testfile_overlay
 ```
 
@@ -64,11 +64,11 @@ vagrant@ubuntu-bionic:~$ tree ./
 ```
 
 
-それでは、上層と下層にファイルがある状態で試してみます。
+それでは、上位と下層にファイルがある状態で試してみます。
 
 ```
-vagrant@ubuntu-bionic:~$ touch lower/testfile_lower <= 下層にファイル
-vagrant@ubuntu-bionic:~$ touch upper/testfile_upper <= 上層にファイル
+vagrant@ubuntu-bionic:~$ touch lower/testfile_lower <= 下位にファイル
+vagrant@ubuntu-bionic:~$ touch upper/testfile_upper <= 上位にファイル
 vagrant@ubuntu-bionic:~$ tree ./
 ./
 ├── lower
@@ -99,10 +99,10 @@ vagrant@ubuntu-bionic:~$ tree ./
 5 directories, 6 files
 ```
 
-下層側に変更をしてみます。
+下位側のファイルを変更してみます。
 
 ```
-vagrant@ubuntu-bionic:~$ echo "test" > merged/testfile_lower  # 下層側のファイル
+vagrant@ubuntu-bionic:~$ echo "test" > merged/testfile_lower  # 下位側のファイル
 vagrant@ubuntu-bionic:~$ cat lower/testfile_lower <= 変更はされてない
 vagrant@ubuntu-bionic:~$ cat upper/testfile_lower
 test
@@ -124,11 +124,11 @@ vagrant@ubuntu-bionic:~$ tree ./
 5 directories, 7 files
 ```
 
-下層側に変更が加わると、下層自体に変更はなく、上層にその変更が反映されます。
+下位側に変更が加わると、下位自体に変更はなく、上位にその変更が反映されます。
 
-変更は常にupperdirオプションで指定した上層側ディレクトリ以下になされることがわかります。
+変更は常にupperdirオプションで指定した上位側ディレクトリ以下になされることがわかります。
 
-上層への変更はどうでしょう？
+上位への変更はどうでしょう？
 
 ```
 vagrant@ubuntu-bionic:~$ echo "test" > merged/testfile_upper
@@ -154,9 +154,9 @@ vagrant@ubuntu-bionic:~$ cat upper/testfile_upper
 test
 ```
 
-上層にあるファイルに変更を加えると，そのまま上層にあるファイルが変更されています。
+上位にあるファイルに変更を加えると，そのまま上位にあるファイルが変更されています。
 
-上層側のファイルを消してみます。
+上位側のファイルを消してみます。
 
 ```
 vagrant@ubuntu-bionic:~$ rm merged/testfile_overlay
@@ -176,9 +176,9 @@ vagrant@ubuntu-bionic:~$ tree ./
 5 directories, 5 files
 ```
 
-先ほどまで上層側に存在していたtestdir_overlayとtestfile_overlayがマウントされたディレクトリでも上層側のディレクトリでも消去されています。
+先ほどまで上位側に存在していたtestdir_overlayとtestfile_overlayがマウントされたディレクトリでも上位側のディレクトリでも消去されています。
 
-下層側のファイルを削除してみます。
+下位側のファイルを削除してみます。
 
 ```
 vagrant@ubuntu-bionic:~$ rm merged/testfile_lower
@@ -197,10 +197,12 @@ vagrant@ubuntu-bionic:~$ tree ./
 5 directories, 4 files
 ```
 
-下層にも上層にも存在していたtestfile_lowerファイルを消してみました。
-すると，下層側には *そのままの状態* でファイルが残っています。 => Dockerで上層側のファイルを消しても容量が減らないのはここですね
+下位にも上位にも存在していたtestfile_lowerファイルを消してみました。
+すると，下位側には *そのままの状態* でファイルが残っています。 
 
-上層側のファイルは、特殊ファイルになっていました。
+=> Dockerで上位側のファイルを消しても容量が減らないのはここですね
+
+上位側のファイルは、特殊ファイルになっていました。
 
 ```
 vagrant@ubuntu-bionic:~$ ls -al upper/
