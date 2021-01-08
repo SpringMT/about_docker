@@ -1,3 +1,4 @@
+# Dockerfile
 Dockerイメージを作成する方法はたくさんあります。
 
 単純なshell scriptでも作ることができます。
@@ -45,68 +46,23 @@ COPY | | ADDと似ていますが、URLの指定や、自動的な展開など�
 ENTRYPOINT | ENTRYPOINT ["executable", "param1", "param2"] exec形式 <br> ENTRYPOINT command param1 param2　shell形式 | 一番初めに実行すべきコマンドのオプション定義です。<br>シェル形式ではCMD や docker run におけるコマンドライン引数は無視します。| x |CMD と ENTRYPOINT の関連について<br>https://docs.docker.jp/engine/reference/builder.html#cmd-entrypoint
 CMD |	CMD ["executable","param1","param2"] (exec form, this is the preferred form) <br>CMD command param1 param2 (shell form) <br>CMD ["param1","param2"] (as default parameters to ENTRYPOINT) | CMD 命令の主目的は、コンテナの実行時のデフォルト処理を設定することです。<br>shell形式、exec形式で定義するとイメージが起動されたときに実行するコマンドの指定となります・<br>exec形式が推奨です。 | x | 
 	
-ENV	ENV <key>=<value> ...	
-環境変数 <key> に <value> という値を設定します。
+ENV | ENV <key>=<value> ... | 環境変数 <key> に <value> という値を設定します。<br>Dockerfile 内で定義して以降、使い回したり、値を上書きできたりします。 | x | 
+LABEL | イメージにメタデータを付与するコマンド。バージョンはいくつだとか、作成者の名前とかをキーバリューで記入したりするのに使う。 | x | https://github.com/opencontainers/image-spec/blob/79b036d80240ae530a8de15e1d21c7ab9292c693/annotations.md#back-compatibility-with-label-schema
+EXPOSE | コンテナが公開するポートを指定します。<br>ただ、これはコンテナ側から公開するだけなので、実際にホスト側からアクセスするには、 docker run -p 80:80 みたいな感じでバインドする必要があります。 | x |
+VOLUME | ホスト側のデータをマウントするディレクトリを指定するコマンド。 | x | 
+USER | USER <user>[:<group>] <br> USER <UID>[:<GID>] | USER 命令は、ユーザ名（または UID）と、オプションとしてユーザグループ（または GID）を指定します。 そしてイメージが実行されるとき、Dockerfile 内の後続の RUN、CMD、ENTRYPOINT の各命令においてこの情報を利用します。 | x | 
+WORKDIR | WORKDIR /path/to/workdir | WORKDIR 命令はワークディレクトリを設定します。<br> WORKDIR が存在しないときは生成されます。| x |
+ONBUILD | | ONBUILD 命令は、イメージに対して トリガ 命令（trigger instruction）を追加します。 トリガ命令は後々実行されるものであり、そのイメージが他のビルドにおけるベースイメージとして用いられたときに実行されます。| x | わかりにくいので正直使わないほうがいいと思っています。 <br>例 : https://github.com/nodejs/docker-node/blob/a8dbfa5c7cac9dca9145c6f429cd2c4f11176707/8/onbuild/Dockerfile
+STOPSIGNAL | コンテナーを終了するためのシグナルを指定する。 <br>デフォルトのsignalは 9 、 SIGNAME 、 SIGKILL 等が指定できます。 | x | 
+HEALTHCHECK | | HEALTHCHECK 命令は、コンテナが動作していることをチェックする方法を指定するものです。<br>コンテナのヘルスステータスはdocker inspectで確認できます。| x | 
+SHELL | | Dockerfile 内で実行されるシェルコマンドの形式を上書きするコマンド。 Linux 環境の場合だと、デフォルトで /bin/sh -c として実行されるが、これを /bin/bash などに変更できます。		
 
-Dockerfile 内で定義して以降、使い回したり、値を上書きできたりします。
-
-	
-LABEL	
-イメージにメタデータを付与するコマンド。バージョンはいくつだとか、作成者の名前とかをキーバリューで記入したりするのに使う。		
-https://github.com/opencontainers/image-spec/blob/79b036d80240ae530a8de15e1d21c7ab9292c693/annotations.md#back-compatibility-with-label-schema
-
-fomat
-
-EXPOSE	
-コンテナが公開するポートを指定します。
-
-ただ、これはコンテナ側から公開するだけなので、実際にホスト側からアクセスするには、 docker run -p 80:80 みたいな感じでバインドする必要があります。
-
-	
-VOLUME	
-ホスト側のデータをマウントするディレクトリを指定するコマンド。		
-USER	
-USER <user>[:<group>]
-
-USER <UID>[:<GID>]
-
-USER 命令は、ユーザ名（または UID）と、オプションとしてユーザグループ（または GID）を指定します。 そしてイメージが実行されるとき、Dockerfile 内の後続の RUN、CMD、ENTRYPOINT の各命令においてこの情報を利用します。		
-WORKDIR	WORKDIR /path/to/workdir	
-WORKDIR 命令はワークディレクトリを設定します。
-
-WORKDIR が存在しないときは生成されます。
-
-
-
-	
-ONBUILD	
-ONBUILD 命令は、イメージに対して トリガ 命令（trigger instruction）を追加します。 トリガ命令は後々実行されるものであり、そのイメージが他のビルドにおけるベースイメージとして用いられたときに実行されます。
-
-	
-わかりにくいので正直使わないほうがいいと思っています。
-
-例 : https://github.com/nodejs/docker-node/blob/a8dbfa5c7cac9dca9145c6f429cd2c4f11176707/8/onbuild/Dockerfile
-
-STOPSIGNAL	
-コンテナーを終了するためのシグナルを指定する。
-
-デフォルトのsignalは 9 、 SIGNAME 、 SIGKILL 等が指定できる。
-
-	
-HEALTHCHECK	
-HEALTHCHECK 命令は、コンテナが動作していることをチェックする方法を指定するものです。
-
-コンテナのヘルスステータスはdocker inspectで確認できます。
-
-	
-SHELL	
-Dockerfile 内で実行されるシェルコマンドの形式を上書きするコマンド。 Linux 環境の場合だと、デフォルトで /bin/sh -c として実行されるが、これを /bin/bash などに変更できます。		
 https://spring-mt.hatenablog.com/entry/2020/12/16/032810
 
 http://www.redout.net/data/tar.html tarの構造
 
-その他使わなさそうなやつ
-パーサ・ディレクティブ
+## その他使わなさそうなやつ
+### パーサ・ディレクティブ
 https://docs.docker.jp/engine/reference/builder.html#parser-directives
 
 syntaxディレクティブはBuildKitを使っている場合に使える。
@@ -120,8 +76,7 @@ escapeディレクティブを使ってエスケープ文字として用いる�
 https://docs.docker.com/engine/reference/builder/#escape
 
 
-
-CMDとENETYPOINTの関連
+## CMDとENETYPOINTの関連
 https://docs.docker.jp/engine/reference/builder.html#cmd-entrypoint
 
 シェル形式とexec形式とかシェルとかをちゃんとやるときの参考
@@ -131,11 +86,9 @@ https://qiita.com/RyoMa_0923/items/9b5d2c4a97205692a560
 
 https://qiita.com/hyamatan/items/0b7df8927ddbab603104
 
-Linter
+## Linter
 https://github.com/hadolint/hadolint
 
-参考
+## 参考
 https://github.com/docker-library
-
-
 
