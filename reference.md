@@ -5,6 +5,10 @@ https://eh-career.com/engineerhub/entry/2019/02/05/103000
 
 https://gihyo.jp/admin/serial/01/linux_containers
 
+このslideを読めばkubernetesまでも大枠網羅できる
+
+https://speakerdeck.com/nwiizo/2020-introduction-container-winter-story
+
 ## セキュリティ周り
 ### Container Security Book
 https://container-security.dev/namespace/chroot-and-pivot_root.html
