@@ -22,9 +22,13 @@ https://gihyo.jp/admin/serial/01/linux_containers/0002
 ![](https://hpeb.i.lithium.com/t5/image/serverpage/image-id/98754iEF6846F0AEE18604/image-size/large?v=1.0&px=2000)
 参照 https://community.hpe.com/t5/hpe-blog-japan/docker%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E4%BB%AE%E6%83%B3%E5%8C%96%E3%81%AE%E9%81%95%E3%81%84%E3%81%A8%E3%81%AF-synergy%E3%81%A8devops/ba-p/6980068?profile.language=ja#.X64f5FMzbzJ
 
-これらのように、コンテナというのはホストOS上の *プロセス* です。
+これらのように、コンテナというのはホストOS上の **プロセス** です。
 
-このプロセスを、OSの機能を使って隔離して、他のコンテナから見えないようにしています。
+**プロセス** です。(大事なことなので2回いいました。)
+
+プロセスを、他のプロセスから見えないようにすることで安全に実行できるようにすることが重要です。
+
+そのために、これから説明するOS(主にLinux)の機能を駆使して隔離します。
 
 ## コンテナ型仮想化のメリット・デメリット
 ハイパーバイザー型との比較になります。
