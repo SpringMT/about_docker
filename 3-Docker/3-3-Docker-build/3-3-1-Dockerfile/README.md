@@ -45,7 +45,6 @@ ADD | ADD [--chown=<user>:<group>] <src>... <dest> <br> ADD [--chown=<user>:<gro
 COPY | | ADDと似ていますが、URLの指定や、自動的な展開などはしないコマンドになります。<br>COPY は単に、基本的なコピー機能を使ってローカルファイルをコンテナにコピーするだけです。<br>一般的にはADDよりCOPYを優先して使ってください。(わかりやすさ) | o | ADDと同じ
 ENTRYPOINT | ENTRYPOINT ["executable", "param1", "param2"] exec形式 <br> ENTRYPOINT command param1 param2　shell形式 | 一番初めに実行すべきコマンドのオプション定義です。<br>シェル形式ではCMD や docker run におけるコマンドライン引数は無視します。| x |CMD と ENTRYPOINT の関連について<br>https://docs.docker.jp/engine/reference/builder.html#cmd-entrypoint
 CMD |	CMD ["executable","param1","param2"] (exec form, this is the preferred form) <br>CMD command param1 param2 (shell form) <br>CMD ["param1","param2"] (as default parameters to ENTRYPOINT) | CMD 命令の主目的は、コンテナの実行時のデフォルト処理を設定することです。<br>shell形式、exec形式で定義するとイメージが起動されたときに実行するコマンドの指定となります・<br>exec形式が推奨です。 | x | 
-	
 ENV | ENV <key>=<value> ... | 環境変数 <key> に <value> という値を設定します。<br>Dockerfile 内で定義して以降、使い回したり、値を上書きできたりします。 | x | 
 LABEL | イメージにメタデータを付与するコマンド。バージョンはいくつだとか、作成者の名前とかをキーバリューで記入したりするのに使う。 | x | https://github.com/opencontainers/image-spec/blob/79b036d80240ae530a8de15e1d21c7ab9292c693/annotations.md#back-compatibility-with-label-schema
 EXPOSE | コンテナが公開するポートを指定します。<br>ただ、これはコンテナ側から公開するだけなので、実際にホスト側からアクセスするには、 docker run -p 80:80 みたいな感じでバインドする必要があります。 | x |
