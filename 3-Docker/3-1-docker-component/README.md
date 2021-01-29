@@ -23,9 +23,9 @@ https://docs.docker.com/engine/api/
 
 現在はmobyとよばれています。
 
-https://knowledge.sakura.ad.jp/11068/ (Moby」ベースとなったオープンソース版Dockerの最新状況)
+[Moby」ベースとなったオープンソース版Dockerの最新状況](https://knowledge.sakura.ad.jp/11068/)
 
-https://www2.slideshare.net/AkihiroSuda/japan-container-days-2018dockermoby (2018年のDocker・Moby)
+[2018年のDocker・Mob](https://www2.slideshare.net/AkihiroSuda/japan-container-days-2018dockermoby)
 
 イメージの管理はcontainerdに移そうとしたが結局頓挫している？？
 
