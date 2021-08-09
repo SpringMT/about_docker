@@ -23,3 +23,5 @@ https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/configura
 ## 参考
 * https://yasuharu519.hatenablog.com/entry/2019/12/19/142454
 * https://qiita.com/flatnyat/items/3cad79fc5a323ae3245c
+* https://qiita.com/orfx/items/6d0709d1a175793cad03
+* https://github.com/aws/aws-for-fluent-bit/tree/mainline/ecs
