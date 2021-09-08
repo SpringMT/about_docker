@@ -7,6 +7,13 @@ https://github.com/hadolint/hadolint
 ## ベースイメージの選定
 どのディストリビューションを使うのかなどの検討が必要です。
 
+Dockerイメージを小さくするためにalpineの利用を検討されている方も多いかと思いますが、alpineを使う場合の注意点は [こちら](https://github.com/SpringMT/about_docker/blob/main/3-Docker/3-3-Docker-build/3-3-4-best-practice/dockerfile.md#alpine%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%8B) にまとめました。
+
+## 使える命令を整理する
+下記をご参照ください。
+
+https://github.com/SpringMT/about_docker/tree/main/3-Docker/3-3-Docker-build/3-3-1-Dockerfile
+
 # コンテナの実行について
 
 ## 1コンテナ1アプリ
@@ -34,9 +41,14 @@ https://github.com/hadolint/hadolint
 [Docker/Kubernetes で PID 1 問題を回避する](https://text.superbrothers.dev/200328-how-to-avoid-pid-1-problem-in-kubernetes/)
 
 # Dockerのビルド
+ビルドは速いことが重要。
 
 ## .dockerignoreを使って不要なファイルを転送しないようにする
-不要なファイルの転送と、Dockerイメージの容量の抑制、脆弱性があるファイルを含む可能性の低減など、様々なメリットがあります。
+docker build時に指定したビルドコンテキストに含まれるディレクトリ、ファイルがDockerfileに関係なくDockerに送られます。
+
+ここで不要なファイルなどがあると、docker buildに時間がかかってしまいます。
+
+`.dockerignore` を利用して不要なファイルの転送を抑制することができます。
 
 https://docs.docker.com/engine/reference/builder/#dockerignore-file
 
@@ -51,15 +63,39 @@ Dockerイメージはレイヤー構成になっています。
 
 そこで、依存があるものは一つの命令にまとめ、レイヤーキャッシュをうまく使うことでDockerイメージのビルドの高速化を目指します。
 
+### CircleCIでDockerイメージをビルドする場合
+CircleCI上のイメージキャッシュはマシン毎になるので、Dockerfileを更新したりするとビルドの時間がばらつきます。
+
+CircleCI上でDockerイメージをビルドする場合にイメージキャッシュを効かせるためには、config.yamlで下記が必要になります。
+
+* https://circleci.com/docs/2.0/docker-layer-caching/
+
+#### プライマリの Executor がdockerコンテナである場合
+例
+```
+jobs:
+  build_and_push_api_docker_image:
+    docker:
+      - image: nginx
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+```
+
+#### machine Executoreの場合
+例
+```
+machine:
+  docker_layer_caching: true 
+```
+
 ## 秘匿情報をADDしない
 秘匿情報をADDしてしまって、あとの操作で削除しても、ADDをしたレイヤーには秘匿情報が残ってしまいます。
 
 ビルド時に必要な秘匿情報はADDでファイルを使ってDockerイメージに入れるのではなく、環境変数で渡すようにします。
 
 ## イメージのサイズをできる限り小さくする
-
-### ベースイメージの選定
-alpineなどもありますが、alpineを使う場合の注意点は [こちら](https://github.com/SpringMT/about_docker/blob/main/3-Docker/3-3-Docker-build/3-3-4-best-practice/dockerfile.md#alpine%E3%82%92%E4%BD%BF%E3%81%86%E3%81%AE%E3%81%8B) にまとめました。
 
 ### できればマルチステージビルドを使う
 マルチステージビルドによって、ビルドには必要だが、実行には不要なライブラリなどを取り除くことができます。
@@ -93,7 +129,31 @@ gitのコミットハッシュをつけ、どのコードベースから生成�
 
 最新のDockerイメーjにlatestをつけて運用する場合、思わぬタイミングでdeployされてしまうので気をつけましょう。
 
+## publicイメージ使うときはよく確認してから使いましょう
+
+# Dockerイメージの分析
+diveなどのツールを使ってDockerイメージの容量が大きい要因などを分析可能です。
+
+https://github.com/wagoodman/dive
+
 # コンテナの運用
+## ログの運用
+
+## イミュータブルかつステートレス
+
+## 特権コンテナを割ける
+
+## モニタリングしやすいようにする
+
+## ヘルスチェック
+
+## FileSystemをread-onlyにする
+
+kubernetesだと `readOnlyRootFilesystem` にするなどの対応があります。
+
+## rootでの起動を避ける
+
+## Dockerイメージのバージョンを注意深く管理する
 
 
 
